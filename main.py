@@ -1,6 +1,7 @@
 from numpy.random import choice 
+import random
 from collections import Counter
-
+from readtext import fishie_value_list as fishvalues, fish_and_locations as fishcations 
 
 class GameState():
 
@@ -15,14 +16,15 @@ class Fisherman():
 		self.name = 'Freddy'
 		self.gear = None
 		self.bait = None
-		self.location = 'pond'
+		self.location = 'Pond'
 		self.inventory = []
 		self.history = {}
 		self.inventory2 = []
 
-		self.locations = {'pond':['bass', 'carp', 'catfish'],
-						'beach':['trout', 'hardhead','redfish']
-		}
+		# self.locations = {'pond':['bass', 'carp', 'catfish'],
+		# 				'beach':['trout', 'hardhead','redfish']
+		# }
+		self.locations = fishcations
 
 		self.money = 0
 
@@ -36,13 +38,14 @@ class Fisherman():
 		else:
 			# Hooked a fish, but what kind!?
 			# Based on location - give different types of fish
-			self.select_fish
-			return 'FISH'
+			# return 'redfish'
+			return self.select_fish()
 
 
 	def select_fish(self):
 		fish_to_choose_from = self.locations[self.location]
-		print fish_to_choose_from
+		return random.choice(fish_to_choose_from)
+
 
 	def change_gear(newgear):
 		pass
@@ -55,7 +58,11 @@ class Fisherman():
 
 	def sell_fish(self, fish):
 		shop_prices = {'fish': 2, 'redfish': 20}
-		return shop_prices[fish]
+		# TODO - ADD LOCATION FIRST
+		'''
+		'''
+		return fishvalues[fish]
+		# return shop_prices[fish]
 
 def day_cycle(game, fisherman):
 	man.nothing_or_fish_weights = [.3, .7]

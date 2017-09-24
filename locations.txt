@@ -1,4 +1,5 @@
-# .startswith(!) to find location split and take [1]
+# ! to indicate location
+# fishname | value
 
 ! Pond 
 Smallmouth Bass | 2
@@ -9,12 +10,14 @@ Black Crappie | 7
 White Crappie | 7
 Smallmouth Buffalo | 10
 Bigmouth Buffalo | 50
+
 ! Open Water
 Striped Mullet | 1
 Black Drum | 25
 Red Drum | 30
 Tarpon | 100
 Spotted Seatrout | 20
+Mermaid | 1000
 
 ! River
 Freshwater Drum | 15

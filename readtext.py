@@ -1,5 +1,12 @@
+"""Summary
+
+Attributes:
+    data (TYPE): Description
+    fish_and_locations (TYPE): Description
+    logger (TYPE): Description
+"""
 import logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def read_data(filename='locations.txt'):
@@ -49,16 +56,43 @@ def get_fish_value(fish):
 		pass
 
 def get_list_of_fish_prices(data):
+	"""Cleans data and gives values for all fishies
+	
+	Args:
+	    data (DICT): Takes dictionary of fish lines and cleans data
+	
+	Returns:
+	    DICT: A dictionary with fishname as lookup for values
+	"""
 	fish_values = {}
+
 	for location, fishlist in data.items():
 		for fish in fishlist:
-			# fishes_and_values.append(get_fish_value(fish))
 			logger.info('Current Fish: {}'.format(fish.split('|')[0]))
 			fishname, fishvalue = get_fish_value(fish)
-			fish_values[fishname] = fish_values.get(fishname, fishvalue)
+			fish_values[fishname] = fish_values.get(fishname, int(fishvalue))
+
 	return fish_values
 
+def get_location_and_fishes(data):
+	"""Take away value (Redundant, need to combine this and other function)
+	
+	Args:
+	    data (TYPE): Description
+	
+	Returns:
+	    TYPE: CLeaned diction with fish name and location
+	"""
+	cleaned_data = {}
+
+	for location, fishlist in data.items():
+		for fish in fishlist:
+			cleaned_data[location] = cleaned_data.get(location, [])
+			cleaned_data[location].append(fish.split('|')[0].strip())
+
+	return cleaned_data
 
 data = read_data()
-mylist = get_list_of_fish_prices(data)
 
+fish_and_locations = get_location_and_fishes(data)
+fishie_value_list = get_list_of_fish_prices(data)
