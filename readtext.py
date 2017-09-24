@@ -55,44 +55,25 @@ def get_fish_value(fish):
 	else:
 		pass
 
-def get_list_of_fish_prices(data):
-	"""Cleans data and gives values for all fishies
-	
-	Args:
-	    data (DICT): Takes dictionary of fish lines and cleans data
-	
-	Returns:
-	    DICT: A dictionary with fishname as lookup for values
-	"""
-	fish_values = {}
+def get_fish_value_or_location(data, values=True):
+	''' returns {fish: int(value)} by default, {location: [fish]} with optional arg'''
+	fishies = {}
+
 
 	for location, fishlist in data.items():
 		for fish in fishlist:
 			logger.info('Current Fish: {}'.format(fish.split('|')[0]))
-			fishname, fishvalue = get_fish_value(fish)
-			fish_values[fishname] = fish_values.get(fishname, int(fishvalue))
+			if values: 
+				print "Yes"
+				fishname, fishvalue = get_fish_value(fish)
+				fishies[fishname] = fishies.get(fishname, int(fishvalue))
+			else: # return locations
+				fishies[location] = fishies.get(location, [])
+				fishies[location].append(fish.split('|')[0].strip())
 
-	return fish_values
-
-def get_location_and_fishes(data):
-	"""Take away value (Redundant, need to combine this and other function)
-	
-	Args:
-	    data (TYPE): Description
-	
-	Returns:
-	    TYPE: CLeaned diction with fish name and location
-	"""
-	cleaned_data = {}
-
-	for location, fishlist in data.items():
-		for fish in fishlist:
-			cleaned_data[location] = cleaned_data.get(location, [])
-			cleaned_data[location].append(fish.split('|')[0].strip())
-
-	return cleaned_data
+	return fishies
 
 data = read_data()
 
-fish_and_locations = get_location_and_fishes(data)
-fishie_value_list = get_list_of_fish_prices(data)
+fishie_value_list = get_fish_value_or_location(data, True)
+fish_and_locations = get_fish_value_or_location(data, False)
