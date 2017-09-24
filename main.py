@@ -21,9 +21,6 @@ class Fisherman():
 		self.history = {}
 		self.inventory2 = []
 
-		# self.locations = {'pond':['bass', 'carp', 'catfish'],
-		# 				'beach':['trout', 'hardhead','redfish']
-		# }
 		self.locations = fishcations
 
 		self.money = 0
@@ -53,16 +50,16 @@ class Fisherman():
 	def change_bait(newbait):
 		pass
 
-	def travel(destination):
-		pass
+	def travel(self, destination):
+		if destination in self.locations.keys():
+			print "Traveling to the {}".format(destination)
+			self.location = destination
+		else:
+			print "Invalid desintation"
+		
 
 	def sell_fish(self, fish):
-		shop_prices = {'fish': 2, 'redfish': 20}
-		# TODO - ADD LOCATION FIRST
-		'''
-		'''
 		return fishvalues[fish]
-		# return shop_prices[fish]
 
 def day_cycle(game, fisherman):
 	man.nothing_or_fish_weights = [.3, .7]
@@ -88,7 +85,10 @@ def day_cycle(game, fisherman):
 
 	print "Todays Summary: {}".format(Counter(l))
 
-	answer = raw_input('Do you want to sell your fish?')
+	# answer = raw_input('Do you want to sell your fish?')
+	answer = 'n'
+	man.travel('River')
+	print man.location
 	if answer.lower() != 'n':
 		for fish in man.inventory2[:]:
 			man.money += man.sell_fish(fish)
