@@ -1,0 +1,23 @@
+# .startswith(!) to find location split and take [1]
+
+! Pond 
+Smallmouth Bass | 2
+Largemouth Bass | 10
+Shortnose Gar | 5
+Alligator Gar | 20
+Black Crappie | 7
+White Crappie | 7
+Smallmouth Buffalo | 10
+Bigmouth Buffalo | 50
+! Open Water
+Striped Mullet | 1
+Black Drum | 25
+Red Drum | 30
+Tarpon | 100
+Spotted Seatrout | 20
+
+! River
+Freshwater Drum | 15
+Red Drum | 30
+Rainbow Trout | 10
+Paddlefish | 22
