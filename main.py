@@ -107,6 +107,8 @@ def day_cycle(game, fisherman):
 
 	print "*" * 42
 	logger.debug("Todays Summary: {}".format(Counter(l)))
+	print "Today's Catches!"
+	print "*" * 42
 	for k, v in (Counter(l).items()):
 		if k == 'nothing':
 			continue
@@ -114,17 +116,28 @@ def day_cycle(game, fisherman):
 			print k, v
 	print "*" * 42
 
-	# answer = raw_input('Do you want to sell your fish?')
-	answer = 'n'
+	answer = raw_input('Do you want to sell your fish? ("y")')
+	# answer = 'n'
 	man.travel(random.choice(man.locations.keys()))
-	if answer.lower() != 'n':
+	if answer.lower() == 'y':
+		total = 0
 		for fish in man.inventory2[:]:
-			man.money += man.sell_fish(fish)
+			total += man.sell_fish(fish)
+			# man.money += man.sell_fish(fish)
 			man.inventory2.remove(fish)
-			print 'Money: {}'.format(man.money)
+		man.money += total
+		print "Made {}".format(total)
+		print 'Money: {}'.format(man.money)
 
 	print "_" * 42
+	# count inventory up
 
+	counted = Counter(man.inventory2)
+	print "Fish in inventory"
+	print "-" * 42
+	for k,v in counted.items():
+		print k, v
+	
 
 def modify_weights(weights, modified_weights):
 	new_weights = []
@@ -142,5 +155,6 @@ while True:
 	day_cycle(game, man)
 	if game.day == 5:
 		break
-	raw_input('enter')
+	print "~" * 42
+	raw_input('Next Day')
 	print(chr(27) + "[2J")
