@@ -40,17 +40,22 @@ class Fisherman():
 		fish = ''
 		print "-" * 42
 		print "Fisherman Casts..."
+
+		# slight random delay after each cast
 		ones_place = random.randrange(5)
 		tenth_place = random.randrange(0,10)
 		time_next_cast = str(ones_place) + '.' + str(tenth_place)
 		time_next_cast = float(time_next_cast)
 		logger.debug('Next cast in: {}'.format(time_next_cast/10))
-		time.sleep(time_next_cast/100)
+		time.sleep(time_next_cast/10)
+
+		# catch a fish?
 		fish_or_not = choice(self.nothing_or_fish, p=self.nothing_or_fish_weights)
 		if fish_or_not == 'nothing':
-			print "Nothing!"
+			print "Caught nothing..."
 			return fish_or_not
 		else:
+			# select random fish
 			fish = self.select_fish()
 			print "Caught a {}".format(fish) 
 			return fish
