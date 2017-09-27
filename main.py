@@ -1,9 +1,8 @@
 from numpy.random import choice 
-import random
-import sys
-import time
 from collections import Counter
 from readtext import fishie_value_list as fish_values, fish_and_locations as fish_locations 
+import random
+import time
 import logging
 
 logging.basicConfig(level=50)
@@ -81,6 +80,7 @@ class Fisherman():
 		return fish_values[fish]
 
 def day_cycle(game, fisherman):
+	# weights of catching a fish, 70% yes, 30% no
 	man.nothing_or_fish_weights = [.3, .7]
 	game.day += 1
 	todays_weather = choice(game.weather, p=game.weather_weights)
@@ -91,9 +91,10 @@ def day_cycle(game, fisherman):
 	print "Location: {}".format(man.location)
 	
 	if todays_weather == 'rain':
+		# if rain, weights will be %40 yes, 60% no
 		fisherman.nothing_or_fish_weights = modify_weights(fisherman.nothing_or_fish_weights, [.3, -.3])
 	
-	# man fishes 200 times and appends results to fish_list
+	# man fishes appends results to fish_list
 	fish_list = [man.fish() for _ in range(10)]
 	logger.debug("Todays Catches: {}".format(Counter(fish_list)))
 	day = 'Day {}'.format(game.day)
