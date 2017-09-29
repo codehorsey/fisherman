@@ -49,10 +49,10 @@ def get_fish_value(fish):
 	logger.debug('get_fish_value: {}'.format(fish))
 	if fish:
 		temp =  fish.split('|')
-	
 		fishname = temp[0].strip()
 		fishvalue = temp[1].strip()
-		return fishname, fishvalue
+		fishrarity = temp[2].strip()
+		return fishname, fishvalue, fishrarity
 	else:
 		pass
 
@@ -66,13 +66,13 @@ def get_fish_value_or_location(data, values=True):
 			logger.info('Current Fish: {}'.format(fish.split('|')[0]))
 			if values: 
 				logger.info('Returning Fish and Value Dict')
-				fishname, fishvalue = get_fish_value(fish)
-				fishies[fishname] = fishies.get(fishname, int(fishvalue))
+				fishname, fishvalue, fishrarity = get_fish_value(fish)
+				fishies[fishname] = fishies.get(fishname, [int(fishvalue),str(fishrarity)])
 			else: # return locations
 				logger.info('Returning Location and Fish Dict')
 				fishies[location] = fishies.get(location, [])
 				fishies[location].append(fish.split('|')[0].strip())
-
+ 
 	return fishies
 
 data = read_data()
