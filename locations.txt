@@ -2,25 +2,26 @@
 # fishname | value
 
 ! Pond 
-Smallmouth Bass | 2
-Largemouth Bass | 10
-Shortnose Gar | 5
-Alligator Gar | 20
-Black Crappie | 7
-White Crappie | 7
-Smallmouth Buffalo | 10
-Bigmouth Buffalo | 50
+Smallmouth Bass | 2 | common
+Largemouth Bass | 10 | uncommon
+Shortnose Gar | 5 | common
+Alligator Gar | 20 | rare
+Black Crappie | 7 | common
+White Crappie | 7 | common
+Smallmouth Buffalo | 10 | uncommon
+Bigmouth Buffalo | 50 | rare
 
 ! Open Water
-Striped Mullet | 1
-Black Drum | 25
-Red Drum | 30
-Tarpon | 100
-Spotted Seatrout | 20
-Mermaid | 1000
+Striped Mullet | 1 | common
+Black Drum | 25 | uncommon
+Red Drum | 30 | uncommon
+Tarpon | 100 | rare
+Spotted Seatrout | 20 | uncommon
+Mermaid | 1000 | rare
 
 ! River
-Freshwater Drum | 15
-Red Drum | 30
-Rainbow Trout | 10
-Paddlefish | 22
+Freshwater Drum | 15 | common
+Red Drum | 30 | uncommon
+Rainbow Trout | 10 | common
+Paddlefish | 22 | uncommon
+Supermean Catfish | 100 | rare
