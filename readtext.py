@@ -1,12 +1,5 @@
-"""Summary
-
-Attributes:
-    data (TYPE): Description
-    fish_and_locations (TYPE): Description
-    logger (TYPE): Description
-"""
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 logging.disable(50)
 
@@ -75,7 +68,12 @@ def get_fish_value_or_location(data, values=True):
  
 	return fishies
 
+# read .txt file
 data = read_data()
 
+# extract {'Fishname': [value, rarity]}
 fishie_value_list = get_fish_value_or_location(data, True)
+
+# extract {'location': [fish1, fish2, fish3]}
 fish_and_locations = get_fish_value_or_location(data, False)
+
