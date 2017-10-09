@@ -1,5 +1,6 @@
 import random
 from numpy.random import choice 
+from collections import Counter
 from readtext import fish_and_locations, fishie_value_list
 import logging
 
@@ -7,30 +8,41 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 logging.disable(0)
 
+class Game():
+	def __init__(self):
+		self.day = 0
+		self.fish_history = {}
+		self.weather_history = {}
+		self.location_history = {}
+
 class Fish():
 	def __init__(self, name, value, rarity='common'):
 		self.name = name
 		self.value = value
 		self.rarity = rarity
 
-class Location():
+	def __repr__(self):
+		return self.name
 
+	def __str__(self):
+		return self.name
+
+class Location():
 	def __init__(self, name):
 		self.name = name
 		self.fishlist = []
 
 class Weather():
-
 	def __init__(self, name, values):
 		self.name = name
 		self.values = values
 
 class Fisherman():
-
-	def __init__(self, name):
-		self.name = "Freddy"
+	def __init__(self, name='Freddy'):
+		self.name = name
 		self.gear = None
 		self.bait = None
+		self.todays_catches = []
 		self.inventory = []
 		self.money = 0
 
@@ -66,10 +78,12 @@ def gofishing(location, weather):
 		caught_fish = random.choice(fish_in_location_with_rare_roll) # random fish of rarity
 		logger.debug('\n\tRarity Roll: {}\n\tFish Name: {}\n\tFish Value: {}\n\tFish Rarity: {}'.format(rare_roll, caught_fish.name, caught_fish.value, caught_fish.rarity))
 
-		# print location.name
-		print caught_fish.name, caught_fish.value, caught_fish.rarity
+		# print caught_fish.name, caught_fish.value, caught_fish.rarity
+		return caught_fish
 	else:
-		print 'no fish'
+		# caught_nothing = Fish('nothing', 0, None)
+		caught_nothing = None
+		return caught_nothing
 
 def populate_weather_objects(filename):
 	'''return object of weathers'''
@@ -91,18 +105,40 @@ def populate_weather_objects(filename):
 	return weather_list
 
 
-def main():
+def fishing_simulation(weather, location):
+	todays_catches = []
+	# Fish 10 times
+	logging.info('Fishing Simulation Started')
+	logger.info('Fishing at {} in {} weather.'.format(location.name, weather.name))
+	for _ in range(10):
+		todays_catches.append(gofishing(location, weather))
+	logger.info('Fishing Done.')
 
+	return todays_catches
+
+
+def main():
+	# Using game to store history of daily catches for data tracking and graphing later
+	game = Game()
+	fisher = Fisherman()
 	locations = populate_location_objects()
 	weathers = populate_weather_objects('weathers.txt')
 
 	todays_weather = random.choice(weathers)
 	todays_location = random.choice(locations)
-	
-	for _ in range(10):
-		logger.info('Fishing at {} in {} weather.'.format(todays_location.name, todays_weather.name))
-		gofishing(locations[0], todays_weather)
-		logger.info('Fishing Done.')
+	todays_catches = fishing_simulation(todays_weather, todays_location)
+
+	# redundant but will be used later to maybe graph toays catches or display
+	fisher.todays_catches = filter(None, todays_catches)
+	for fish in fisher.todays_catches:
+		fisher.inventory.append(fish)
+
+	logger.debug("Todays Catches: {}".format(Counter(fisher.todays_catches)))
+	day = 'Day {}'.format(game.day)
+	game.fish_history[day] = todays_catches
+	game.weather_history[day] = todays_weather 
+	game.location_history[day] = todays_location 
+
 
 if __name__ == "__main__":
 	main()

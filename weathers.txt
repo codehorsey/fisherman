@@ -1,0 +1,5 @@
+Perfect | .9 .1
+Sunny | .7 .3
+Rainy | .3 .7
+Cloudy | .5 .5
+Windy | .4 .6
